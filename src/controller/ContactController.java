@@ -19,7 +19,7 @@ public class ContactController {
     private String currentWorkingFilePath = "data/contacts.csv";
 
 
-    private static final Pattern PHONE_PATTERN = Pattern.compile("0\\d{9,10}"); // 10 hoặc 11 số, bắt đầu bằng 0
+    private static final Pattern PHONE_PATTERN = Pattern.compile("0\\d{9,10}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
     );
@@ -107,10 +107,10 @@ public class ContactController {
         }
         System.out.println(String.format("%-3s | %-12s | %-10s | %-22s | %-8s | %-20s | %-12s | %s",
                 "STT", "SĐT", "Nhóm", "Họ Tên", "Giới tính", "Địa chỉ", "Ngày sinh", "Email"));
-        System.out.println(new String(new char[120]).replace("\0", "-")); // Dòng kẻ ngang
+        System.out.println(new String(new char[120]).replace("\0", "-"));
 
         for (int i = 0; i < contacts.size(); i++) {
-            System.out.println(String.format("%-3d | %s", (i + 1), contacts.get(i).toString())); // Giả sử Contact.toString() đã được format đẹp
+            System.out.println(String.format("%-3d | %s", (i + 1), contacts.get(i).toString()));
             if ((i + 1) % 5 == 0 && i < contacts.size() - 1) {
                 System.out.print("Nhấn Enter để xem tiếp...");
                 sc.nextLine();
@@ -144,7 +144,6 @@ public class ContactController {
         String newBirth = getValidatedDateInputWithDefault("Ngày sinh mới", contactToUpdate.getBirth(), true);
         String newEmail = getValidatedStringInputWithDefault("Email mới", contactToUpdate.getEmail(), EMAIL_PATTERN, "Email không hợp lệ.", true);
 
-        // Cập nhật contact trong danh sách
         contactToUpdate.setGroup(newGroup);
         contactToUpdate.setName(newName);
         contactToUpdate.setGender(newGender);
@@ -249,7 +248,7 @@ public class ContactController {
             return;
         }
 
-        this.currentWorkingFilePath = filePathFromView; // Cập nhật file làm việc hiện tại
+        this.currentWorkingFilePath = filePathFromView;
         List<Contact> loadedContacts = ContactIO.read(this.currentWorkingFilePath);
 
         if (loadedContacts == null) {
